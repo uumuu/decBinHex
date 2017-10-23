@@ -1,11 +1,11 @@
 package decHexBin;
 
-import ex26.BinaryStack;
+//import ex26.BinaryStack;
 
-public class Main {
+public class Converter {
 
     private static boolean isValidConversionType(String str) {
-        return (str != null) && (str.equals("b") || str.equals("h"));
+        return (str != null) && (str.equals("d") || str.equals("b") || str.equals("h"));
     }
     private static boolean isNumeric(String str) {
         return str != null && str.matches("[-+]?\\d*\\.?\\d+");
@@ -25,19 +25,23 @@ public class Main {
             switch (base) {
                 case "d":
                     Decimal decimalConversion = new Decimal();
-                    int validatedInputNum = decimalConversion.validateDec(base, inputNum);
-                    BinaryStack binaryArray = decimalConversion.decimalBinaryDivider(validatedInputNum);
-                    BinaryStack hexArray = decimalConversion.decimalHexDivider(validatedInputNum);
+                    int validatedInputDec = decimalConversion.validateDec(inputNum);
+//                    BinaryStack binaryArray = decimalConversion.decimalBinaryDivider(validatedInputDec);
+                    DigitStack binaryArray = decimalConversion.decimalBinaryDivider(validatedInputDec);
+//                    BinaryStack hexArray = decimalConversion.decimalHexDivider(validatedInputDec);
+                    DigitStack hexArray = decimalConversion.decimalHexDivider(validatedInputDec);
                     String convertedBinaryString = decimalConversion.digitConcatenation(binaryArray);
                     String convertedHexString = decimalConversion.digitConcatenation(hexArray);
                     decimalConversion.convertedPrinter(convertedBinaryString, convertedHexString);
                     break;
-                case "b":
-
-                    break;
-                case "h":
-
-                    break;
+//                case "b":
+//                    Binary binaryConversion = new Binary();
+//                    String validatedInputBinary = binaryConversion.validateBinary(inputNum);
+////                    BinaryStack decArray
+//                    break;
+//                case "h":
+//
+//                    break;
             }
         }
     }
