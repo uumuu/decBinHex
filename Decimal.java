@@ -1,6 +1,4 @@
 package decHexBin;
-//import ex26.BinaryStack;
-//import decHexBin
 public class Decimal {
 
     public final int MAX_BINARY_DIGITS = 33;
@@ -55,14 +53,10 @@ public class Decimal {
     public DigitStack<String> decimalBinaryDivider(int inputNum) {
         // Method for continually dividing decimal by 2 until it reaches zero
         // We then add each remainder to the stack after the subsequent division
-//        BinaryStack binaryArray = new BinaryStack(MAX_BINARY_DIGITS);
          DigitStack<String> binaryArray = new DigitStack<>(MAX_BINARY_DIGITS);
-        // pushes the overall decimal's remainder after dividing by 2
-        // this is for the first binary placeholder value of 1.
         binaryArray.push(String.valueOf(inputNum % 2));
         while (inputNum != 0) {
             inputNum /= 2;
-            // pushes the remainder after dividing by 2 to the stack.
             binaryArray.push(String.valueOf(inputNum % 2));
         }
         return binaryArray;
@@ -72,7 +66,6 @@ public class Decimal {
         // Method for continually dividing decimal by 16 until it reaches zero
         // We then add each remainder to the stack after the subsequent division
 
-//        BinaryStack hexArray = new BinaryStack(MAX_HEX_DIGITS);
         DigitStack<Object> hexArray = new DigitStack<>(MAX_HEX_DIGITS);
         int dividedNum = inputNum;
 

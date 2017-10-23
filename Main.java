@@ -1,8 +1,6 @@
 package decHexBin;
 
-//import ex26.BinaryStack;
-
-public class Converter {
+public class Main {
 
     private static boolean isValidConversionType(String str) {
         return (str != null) && (str.equals("d") || str.equals("b") || str.equals("h"));
@@ -26,9 +24,7 @@ public class Converter {
                 case "d":
                     Decimal decimalConversion = new Decimal();
                     int validatedInputDec = decimalConversion.validateDec(inputNum);
-//                    BinaryStack binaryArray = decimalConversion.decimalBinaryDivider(validatedInputDec);
                     DigitStack binaryArray = decimalConversion.decimalBinaryDivider(validatedInputDec);
-//                    BinaryStack hexArray = decimalConversion.decimalHexDivider(validatedInputDec);
                     DigitStack hexArray = decimalConversion.decimalHexDivider(validatedInputDec);
                     String convertedBinaryString = decimalConversion.digitConcatenation(binaryArray);
                     String convertedHexString = decimalConversion.digitConcatenation(hexArray);
