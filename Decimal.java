@@ -3,7 +3,6 @@ import ex26.BinaryStack;
 
 public class Decimal {
 
-    public final int MAX_INPUT_INT = 2147483647;
     public final int MAX_BINARY_DIGITS = 33;
     public final int MAX_HEX_DIGITS = 10;
 
@@ -38,14 +37,6 @@ public class Decimal {
         return "0";
     }
 
-    public String validateBinary(String inputBin) {
-        if (inputBin.length() > MAX_BINARY_DIGITS) {
-            System.out.println("The binary you have entered is too large.");
-            System.exit(0);
-        }
-        return inputBin;
-    }
-
     public int validateDec(String base, String inputDec) {
         // Method that validates decimal inputs to see if it is within legal length.
         try {
@@ -58,58 +49,58 @@ public class Decimal {
         return 0;
     }
 
-    public BinaryStack numberDivider(int inputNum, String base) {
-        // Method for continually dividing decimal by 2 or 16 until it reaches zero
+    public BinaryStack decimalBinaryDivider(int inputNum) {
+        // Method for continually dividing decimal by 2 until it reaches zero
+        // We then add each remainder to the stack after the subsequent division
+        BinaryStack binaryArray = new BinaryStack(MAX_BINARY_DIGITS);
+        // pushes the overall decimal's remainder after dividing by 2
+        // this is for the first binary placeholder value of 1.
+        binaryArray.push(String.valueOf(inputNum % 2));
+        while (inputNum != 0) {
+            inputNum /= 2;
+            // pushes the remainder after dividing by 2 to the stack.
+            binaryArray.push(String.valueOf(inputNum % 2));
+        }
+        return binaryArray;
+    }
+
+    public BinaryStack decimalHexDivider(int inputNum) {
+        // Method for continually dividing decimal by 16 until it reaches zero
         // We then add each remainder to the stack after the subsequent division
 
-        //THIS CODE IS THE PREVIOUS INCARNATION OF IT, THE BASE DENOTES THE OUTPUT BASE.
-        //WE NEED IT SO WE INPUT ORIGINAL BASE AND CALCULATE BASE ON THAT.
-        //WE ALSO NEED TO PERFORM BOTH !OTHER! CONVERSIONS AS THE PROGRAM IS GOING TO OUTPUT
-        //TWO DIFFERENT CONVERSIONS WITHOUT USER SPECIFYING EXACT TARGET CONVERSION
-        if (base.equals("b")) {
-            BinaryStack binaryArray = new BinaryStack(MAX_BINARY_DIGITS);
-            binaryArray.push(String.valueOf(inputNum % 2));
-            while (inputNum != 0) {
-                inputNum /= 2;
-                binaryArray.push(String.valueOf(inputNum % 2));
-            }
-            return binaryArray;
-        }
-        else {
-            BinaryStack hexArray = new BinaryStack(MAX_HEX_DIGITS);
-            int dividedNum = inputNum;
+        BinaryStack hexArray = new BinaryStack(MAX_HEX_DIGITS);
+        int dividedNum = inputNum;
 
-            while (dividedNum != 0) {
-                dividedNum /= 16;
+        while (dividedNum != 0) {
+            dividedNum /= 16;
 
-                // remainder of dec after division
-                int numDiffRemainder = Math.abs(inputNum - (dividedNum * 16));
+            // remainder of dec after division
+            int numDiffRemainder = Math.abs(inputNum - (dividedNum * 16));
 
-                // if after dividing we have a difference that is within hex value range
-                // push remainder to stack
-                if (dividedNum != 0 && dividedNum * 16 != inputNum && numDiffRemainder <= 15) {
-                    System.out.println("Difference is: " + numDiffRemainder );
-                    if (numDiffRemainder <= 9) {
-                        hexArray.push(String.valueOf(numDiffRemainder));
-                    }
-                    else {
-                        // get hex value if 10 >= value <= 15
-                        hexArray.push(getHexValue(numDiffRemainder));
-                    }
-                }
-                // remainder of dec after division
-                int numRemainder = dividedNum % 16;
-
-                if (numRemainder <= 9) {
-                    hexArray.push(String.valueOf(numRemainder));
+            // if after dividing we have a difference that is within hex value range
+            // push remainder to stack
+            if (dividedNum != 0 && dividedNum * 16 != inputNum && numDiffRemainder <= 15) {
+                System.out.println("Difference is: " + numDiffRemainder );
+                if (numDiffRemainder <= 9) {
+                    hexArray.push(String.valueOf(numDiffRemainder));
                 }
                 else {
                     // get hex value if 10 >= value <= 15
-                    hexArray.push(getHexValue(numRemainder));
+                    hexArray.push(getHexValue(numDiffRemainder));
                 }
             }
-            return hexArray;
+            // remainder of dec after division
+            int numRemainder = dividedNum % 16;
+
+            if (numRemainder <= 9) {
+                hexArray.push(String.valueOf(numRemainder));
+            }
+            else {
+                // get hex value if 10 >= value <= 15
+                hexArray.push(getHexValue(numRemainder));
+            }
         }
+        return hexArray;
     }
 
     public String digitConcatenation(BinaryStack digitArray) {
@@ -128,13 +119,9 @@ public class Decimal {
         return "no";
     }
 
-    public void convertedPrinter(String convertedString, String base) {
+    public void convertedPrinter(String convertedBinary, String convertedHex) {
         //prints stack to terminal
-        if (base.equals("h")) {
-            System.out.println("Hex is: " + convertedString);
-        }
-        else {
-            System.out.println("Binary is: " + convertedString);
-        }
+        System.out.println("Binary: " + convertedBinary);
+        System.out.println("Hex: " + convertedHex);
     }
 }
