@@ -6,7 +6,7 @@ public class Main {
         return (str != null) && (str.equals("d") || str.equals("b") || str.equals("h"));
     }
     private static boolean isNumeric(String str) {
-        return str != null && str.matches("[-+]?\\d*\\.?\\d+");
+        return str != null && str.matches("^[a-zA-Z0-9]*$");
     }
 
     public static void main(String[] args) {
@@ -30,14 +30,24 @@ public class Main {
                     String convertedHexString = decimalConversion.digitConcatenation(hexArray);
                     decimalConversion.convertedPrinter(convertedBinaryString, convertedHexString);
                     break;
-//                case "b":
-//                    Binary binaryConversion = new Binary();
-//                    String validatedInputBinary = binaryConversion.validateBinary(inputNum);
-////                    BinaryStack decArray
-//                    break;
-//                case "h":
-//
-//                    break;
+                case "b":
+                    Binary binaryConversion = new Binary();
+                    binaryConversion.validateBinary(inputNum);
+                    DigitStack binaryDecArray = binaryConversion.binaryDecimalMultiplier(inputNum);
+                    int binaryConvertedDecimal = binaryConversion.digitConcatenation(binaryDecArray);
+                    binaryConversion.convertedPrinter(binaryConvertedDecimal);
+                    binaryConversion.binaryHexConverter(inputNum);
+                    break;
+                case "h":
+                    Hexadecimal hexConversion = new Hexadecimal();
+                    hexConversion.validateHex(inputNum);
+                    DigitStack hexDecArray = hexConversion.hexDecimalMultiplier(inputNum);
+                    int hexConvertedDecimal = hexConversion.digitConcatenation(hexDecArray);
+                    hexConversion.convertedPrinter(hexConvertedDecimal);
+                    hexConversion.hexBinaryConverter(inputNum);
+
+
+                    break;
             }
         }
     }

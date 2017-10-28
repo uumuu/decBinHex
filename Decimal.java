@@ -1,11 +1,8 @@
 package decHexBin;
 public class Decimal {
 
-    public final int MAX_BINARY_DIGITS = 33;
-    public final int MAX_HEX_DIGITS = 10;
-
-    public Decimal() {
-    }
+    private final int MAX_BINARY_DIGITS = 33;
+    private final int MAX_HEX_DIGITS = 10;
 
     public String getHexValue(int remainder) {
         // takes in the remainder and returns its hex value
@@ -41,8 +38,7 @@ public class Decimal {
     public int validateDec(String inputDec) {
         // Method that validates decimal inputs to see if it is within legal length.
         try {
-            int validatedDec = Integer.parseInt(inputDec);
-            return validatedDec;
+            return Integer.parseInt(inputDec);
         } catch (java.lang.NumberFormatException e) {
             System.out.println("The number you have entered is too large.");
             System.exit(0);
@@ -62,11 +58,11 @@ public class Decimal {
         return binaryArray;
     }
 
-    public DigitStack<Object> decimalHexDivider(int inputNum) {
+    public DigitStack<String> decimalHexDivider(int inputNum) {
         // Method for continually dividing decimal by 16 until it reaches zero
         // We then add each remainder to the stack after the subsequent division
 
-        DigitStack<Object> hexArray = new DigitStack<>(MAX_HEX_DIGITS);
+        DigitStack<String> hexArray = new DigitStack<>(MAX_HEX_DIGITS);
         int dividedNum = inputNum;
 
         while (dividedNum != 0) {
@@ -109,11 +105,11 @@ public class Decimal {
             } else {
                 digitArray.pop();
             }
-            if (digitArray.isEmpty()) {
-                return unconvertedString;
-            }
+//            if (digitArray.isEmpty()) {
+//                return unconvertedString;
+//            }
         }
-        return "no";
+        return unconvertedString;
     }
 
     public void convertedPrinter(String convertedBinary, String convertedHex) {
